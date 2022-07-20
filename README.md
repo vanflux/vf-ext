@@ -56,11 +56,32 @@ Target is optional, by default is `chrome`, but it can be `firefox`.
 
 - `npm start <target>` (calls the `vfe start` command).
 
+**Chrome**:
+
+- Go to `chrome://extensions/`
+- Enable development mode
+- Click on load uncompressed extension
+- Find the directory: `build/dev` inside project and load it.
+- After this, to keep the auto reloading working, open the `service worker` window and keep it opened when developing the extension.
+
+<image src="docs/images/service-worker.png" width="350"></image>
+
+**Firefox**:
+
+- Go to `about:debugging`
+- Click on `This Firefox`
+- Click on `Load Temporary Add-on`
+- Find the directory: `build/dev` inside project and load it.
+
 ## Build
 
 Target is optional, by default is `chrome`, but it can be `firefox`.
 
 - `npm run build <target>` (calls the `vfe build` command).
+
+Depending on target, the build directory will be on `build/prod/chrome` or `build/prod/firefox`.
+
+Firefox extension .zip can be used directly because firefox allows you to load compressed extensions, but chrome .zip not, it need to be extracted.
 
 # Current features
 
