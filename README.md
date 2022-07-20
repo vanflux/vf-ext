@@ -10,14 +10,13 @@ This is the continuation of [web-game-hacking-boilerplate](https://github.com/va
 
 # Current features
 
-- Chrome extension build
+- Cross-browser build (firefox & chrome)
 - Page script (script executed directly on web page)
 - React support
 - Automatic extension reload
 
 # Goals
 
-- Cross-browser build
 - Create some 'vfe.js' configuration file (Ex: for configuring internal webpack)
 - API for request rewriting
 - API for content <-> page communication
