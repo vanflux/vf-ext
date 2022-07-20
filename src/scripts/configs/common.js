@@ -3,8 +3,8 @@ const { getManifestContent } = require('../utils/manifest');
 const CopyPlugin = require('copy-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 
-module.exports.getCommonConfig = function () {
-  const initialManifest = getManifestContent();
+module.exports.getCommonConfig = function (target) {
+  const initialManifest = getManifestContent(target);
   return {
     // Run webpack on the app context
     context: appPath,
@@ -79,7 +79,7 @@ module.exports.getCommonConfig = function () {
             to: ".",
             noErrorOnMissing: true,
             transform(content, absoluteFrom) {
-              if (absoluteFrom.endsWith('manifest.json')) return JSON.stringify(getManifestContent(), null, '\t');
+              if (absoluteFrom.endsWith('manifest.json')) return JSON.stringify(getManifestContent(target), null, '\t');
               return content;
             },
           },

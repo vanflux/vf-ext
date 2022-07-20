@@ -22,7 +22,10 @@ const appManifestPath = path.resolve(appPublicPath, 'manifest.json');
 const appBuildPath = path.resolve(appPath, 'build');
 const appBuildDevPath = path.resolve(appBuildPath, 'dev');
 const appBuildProdPath = path.resolve(appBuildPath, 'prod');
-const appBuildProdRawPath = path.resolve(appBuildProdPath, 'raw');
+const appBuildProdChromePath = path.resolve(appBuildProdPath, 'chrome');
+const appBuildProdChromeRawPath = path.resolve(appBuildProdChromePath, 'raw');
+const appBuildProdFirefoxPath = path.resolve(appBuildProdPath, 'firefox');
+const appBuildProdFirefoxRawPath = path.resolve(appBuildProdFirefoxPath, 'raw');
 
 const appBackgroundEntryPaths = [
   path.resolve(appSrcPath, './background/index.ts'),
@@ -60,7 +63,10 @@ module.exports = {
   appBuildPath,
   appBuildDevPath,
   appBuildProdPath,
-  appBuildProdRawPath,
+  appBuildProdChromePath,
+  appBuildProdChromeRawPath,
+  appBuildProdFirefoxPath,
+  appBuildProdFirefoxRawPath,
   appBackgroundEntryPaths,
   appContentEntryPaths,
   appPageEntryPaths,

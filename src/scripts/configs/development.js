@@ -2,7 +2,7 @@ const { DefinePlugin } = require("webpack");
 const AutoReloadPlugin = require("../../webpack-plugins/auto-reload.plugin");
 const { appBuildDevPath } = require("../utils/paths");
 
-module.exports.getDevelopmentConfig = function () {
+module.exports.getDevelopmentConfig = function (target) {
   return {
     devtool: "inline-source-map",
     watch: true,

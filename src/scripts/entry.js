@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-const scriptName = String(process.argv[2]).toLowerCase() || 'start';
+const scriptName = String(process.argv[2] || 'start').toLowerCase();
+const target = String(process.argv[3] || 'chrome').toLowerCase();
 
 switch (scriptName) {
   case 'start':
-    require('./start')();
+    require('./start')(target);
     break;
   case 'build':
-    require('./build')();
+    require('./build')(target);
     break;
   case 'create':
     require('./create')();

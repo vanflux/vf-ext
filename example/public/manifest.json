@@ -1,5 +1,6 @@
 {
-  "manifest_version": 3,
+  "chrome.manifest_version": 3,
+  "firefox.manifest_version": 2,
   "name": "Extension",
   "version": "1.0.0",
   "description": "An extension",
@@ -13,7 +14,8 @@
     "scripting"
   ],
   "background": {
-    "service_worker": "background.js"
+    "chrome.service_worker": "background.js",
+    "firefox.scripts": ["background.js"]
   },
   "content_scripts": [
     {
@@ -21,8 +23,9 @@
       "js": ["content.js"]
     }
   ],
-  "host_permissions": [
+  "chrome.host_permissions": [
     "*://*/*"
   ],
-  "incognito": "split"
+  "firefox.incognito": "spanning",
+  "chrome.incognito": "split"
 }
