@@ -10,13 +10,12 @@ export async function main() {
   }
 
   appContent.immediateEntry?.();
-  // Content script
   runOnReady(['interactive', 'complete'], () => {
-    appContent.pageLoadedEntry?.();
     const script = document.createElement('script');
     script.src = scriptUrl;
     document.body.appendChild(script);
   });
+  runOnReady(['complete'], () => appContent.pageLoadedEntry?.());
 }
 
 main();
