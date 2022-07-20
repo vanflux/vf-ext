@@ -1,0 +1,15 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "vfe start",
+    "build": "vfe build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vf-ext-framework": "file:.."
+  }
+}
