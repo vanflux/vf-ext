@@ -1,8 +1,5 @@
 {
-  "chrome.manifest_version": 3,
-  "firefox.manifest_version": 2,
   "name": "Extension",
-  "version": "1.0.0",
   "description": "An extension",
   "icons": {
     "16": "icon16.png",
@@ -10,22 +7,10 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "permissions": [
-    "scripting"
-  ],
-  "background": {
-    "chrome.service_worker": "background.js",
-    "firefox.scripts": ["background.js"]
-  },
   "content_scripts": [
     {
       "matches": ["*://*/*"],
       "js": ["content.js"]
     }
-  ],
-  "chrome.host_permissions": [
-    "*://*/*"
-  ],
-  "firefox.incognito": "spanning",
-  "chrome.incognito": "split"
+  ]
 }

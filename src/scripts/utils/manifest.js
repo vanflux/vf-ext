@@ -38,19 +38,32 @@ module.exports.getManifestContent = function(target) {
 
   manifest.version = process.env.VERSION || '1.0.0';
 
-  if (manifest.manifest_version === 3) {
-    manifest.web_accessible_resources = [
-      ...manifest.web_accessible_resources || [],
-      {
-        resources: [ 'page.js' ],
-        matches: [ '*://*/*' ],
-      }
-    ];
+  if (target === 'chrome') {
+    manifest.manifest_version = 3;
   } else {
-    manifest.web_accessible_resources = [
-      ...manifest.web_accessible_resources || [],
-      'page.js',
-    ];
+    manifest.manifest_version = 2;
+  }
+  
+  if (!manifest.permissions) manifest.permissions = [];
+  if (!manifest.web_accessible_resources) manifest.web_accessible_resources = [];
+  if (!manifest.background) manifest.background = {};
+
+  if (!manifest.permissions.includes('scripting')) manifest.permissions.push('scripting');
+
+  if (manifest.manifest_version === 3) {
+    manifest.web_accessible_resources.push({
+      resources: [ 'page.js' ],
+      matches: [ '*://*/*' ],
+    });
+    manifest.background.service_worker = 'background.js';
+    if (!manifest.host_permissions) manifest.host_permissions = [];
+    if (!manifest.host_permissions.includes('*://*/*')) manifest.host_permissions.push('*://*/*');
+    if (!manifest.incognito) manifest.incognito = 'split';
+  } else {
+    if (!manifest.web_accessible_resources.includes('page.js')) manifest.web_accessible_resources.push('page.js');
+    if (!manifest.background.scripts) manifest.background.scripts = [];
+    manifest.background.scripts.push('background.js');
+    if (!manifest.incognito) manifest.incognito = 'spanning';
   }
 
   return manifest;
