@@ -1,6 +1,6 @@
 const { mkdirSync, copyFileSync, existsSync } = require("fs");
 const { copySync } = require('fs-extra');
-const { modExamplePublicPath, modExampleSrcPath, modExampleTsConfigPath, cmdPath } = require("./paths");
+const { modExamplePublicPath, modExampleSrcPath, modExampleTsConfigPath, modExampleWebpackPath, cmdPath } = require("./utils/paths");
 const { resolve } = require("path");
 const { writeFileSync } = require("fs");
 const { spawnSync } = require("child_process");
@@ -24,6 +24,7 @@ module.exports = () => {
   copySync(modExamplePublicPath, resolve(projectDir, 'public'));
   copySync(modExampleSrcPath, resolve(projectDir, 'src'));
   copyFileSync(modExampleTsConfigPath, resolve(projectDir, 'tsconfig.json'));
+  copyFileSync(modExampleWebpackPath, resolve(projectDir, 'webpack.config.js'));
 
   console.log('Preparing manifest.json');
   const manifestPath = resolve(projectDir, 'public/manifest.json');
