@@ -3,7 +3,7 @@ const path = require('path');
 
 const cmdPath = fs.realpathSync(process.cwd());
 
-const modPath = path.resolve(fs.realpathSync(__dirname), '../..');
+const modPath = path.resolve(fs.realpathSync(__dirname), '../../..');
 const modSrcPath = path.resolve(modPath, './src');
 const modBackgroundEntryPath = path.resolve(modSrcPath, './background/index.ts');
 const modContentEntryPath = path.resolve(modSrcPath, './content/index.ts');
@@ -17,6 +17,7 @@ const modExampleTsConfigPath = path.resolve(modExamplePath, './tsconfig.json');
 const appPath = fs.realpathSync(process.cwd());
 const appSrcPath = path.resolve(appPath, 'src');
 const appPublicPath = path.resolve(appPath, 'public');
+const appPackagePath = path.resolve(appPath, 'package.json');
 const appManifestPath = path.resolve(appPublicPath, 'manifest.json');
 const appBuildPath = path.resolve(appPath, 'build');
 const appBuildDevPath = path.resolve(appBuildPath, 'dev');
@@ -54,6 +55,7 @@ module.exports = {
   appPath,
   appSrcPath,
   appPublicPath,
+  appPackagePath,
   appManifestPath,
   appBuildPath,
   appBuildDevPath,

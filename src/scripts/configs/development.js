@@ -1,6 +1,6 @@
 const { DefinePlugin } = require("webpack");
 const AutoReloadPlugin = require("../../webpack-plugins/auto-reload.plugin");
-const { appBuildDevPath } = require("../paths");
+const { appBuildDevPath } = require("../utils/paths");
 
 module.exports.getDevelopmentConfig = function () {
   return {

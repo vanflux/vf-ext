@@ -1,6 +1,7 @@
 const { DefinePlugin } = require("webpack");
 const ZipPlugin = require("zip-webpack-plugin");
-const { appBuildProdRawPath, appBuildProdPath } = require("../paths");
+const { appBuildProdRawPath, appBuildProdPath } = require("../utils/paths");
+const { getExtName } = require("../utils/ext");
 
 module.exports.getProductionConfig = function () {
   return {
@@ -18,7 +19,7 @@ module.exports.getProductionConfig = function () {
         path: appBuildProdPath,
         filename: 'extension.zip',
         extension: 'zip',
-        pathPrefix: 'jstris-bot',
+        pathPrefix: getExtName(),
         exclude: [/\.txt$/],
       })
     ],

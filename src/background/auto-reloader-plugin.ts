@@ -1,7 +1,3 @@
-/**
- * Doesnt touch this unless you know what you are doing!
- */
-
 const URLMatchPattern = require('url-match-pattern');
 
 function connect() {
@@ -9,49 +5,54 @@ function connect() {
     console.log('[Auto Reload Plugin] Trying to connect to auto reload server...');
     const ws = new WebSocket('ws://localhost:8497'); // A random port
 
-    ws.onopen = function open() {
+    ws.onopen = () => {
       console.log('[Auto Reload Plugin] Websocket connected');
     };
 
-    ws.onmessage = function message(data) {
+    ws.onmessage = data => {
       if (data?.data === 'reload') {
         console.log('[Auto Reload Plugin] Reload request');
-
-        //@ts-ignore
-        if (typeof chrome !== 'undefined') {
-          console.log('[Auto Reload Plugin] Chrome reloading...');
-          //@ts-ignore
-          chrome.runtime.reload();
-        } else {
-          console.error('[Auto Reload Plugin] Unknown browser...');
-        }
+        reloadExtension();
       }
     };
 
-    ws.onerror = function (event) {
+    ws.onerror = event => {
       console.log('[Auto Reload Plugin] Websocket error:', event);
     };
 
-    ws.onclose = function(event) {  
+    ws.onclose = () => {  
       console.log('[Auto Reload Plugin] Websocket disconnected');
       setTimeout(() => connect(), 1000);
-    }
+    };
   } catch (exc) {
     console.log('[Auto Reload Plugin] Websocket connect error');
     setTimeout(() => connect(), 1000);
   }
 }
 
+async function reloadExtension() {
+  if (typeof chrome !== 'undefined') {
+    chromeReloadExtension();
+  } else {
+    console.error('[Auto Reload Plugin] Unknown browser...');
+  }
+}
+
+async function chromeReloadExtension() {
+  console.log('[Auto Reload Plugin] Chrome reloading...');
+  chrome.runtime.reload();
+}
+
 async function executeContent() {
-  // @ts-ignore
   if (typeof chrome !== 'undefined') {
     chromeExecuteContent();
+  } else {
+    console.error('[Auto Reload Plugin] Unknown browser...');
   }
 }
 
 async function chromeExecuteContent() {
   const queryOptions = {};
-  // @ts-ignore
   const tabs = await chrome.tabs.query(queryOptions) || [];
   for (const tab of tabs) {
     if (tab.url == undefined) continue;
@@ -69,13 +70,12 @@ async function chromeExecuteContent() {
       if (!matched) continue;
 
       console.log('[Auto Reload Plugin] Chrome executing content on', tab.title, tab.id);
-      // @ts-ignore
       await chrome.scripting.executeScript(
         {
           target: { tabId: tab.id },
           files: ['content.js'],
         },
-        (results: any) => {}
+        () => {}
       );
     } catch (err) {
       console.error('Failed to execute script', err);

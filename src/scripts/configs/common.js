@@ -1,24 +1,31 @@
-const { appPath, modBackgroundEntryPath, modContentEntryPath, modPageEntryPath, modSrcPath, appSrcPath, appBackgroundEntryPaths, appContentEntryPaths, appPageEntryPaths } = require('../paths');
-const { getManifestContent } = require('../manifest');
+const { appPath, modBackgroundEntryPath, modContentEntryPath, modPageEntryPath, modSrcPath, appSrcPath, appBackgroundEntryPaths, appContentEntryPaths, appPageEntryPaths } = require('../utils/paths');
+const { getManifestContent } = require('../utils/manifest');
 const CopyPlugin = require('copy-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 
 module.exports.getCommonConfig = function () {
-  const manifest = getManifestContent();
+  const initialManifest = getManifestContent();
   return {
+    // Run webpack on the app context
     context: appPath,
+
+    // Generate javascript files for each script type
     entry: {
       './background': modBackgroundEntryPath,
       './content': modContentEntryPath,
       './page': modPageEntryPath,
     },
+
     module: {
       rules: [
+        // Process framework typescript files with the local tsconfig
         {
           test: /\.tsx?$/,
           include: [modSrcPath],
           loader: 'ts-loader',
         },
+
+        // Process app typescript files with the app tsconfig
         {
           test: /\.tsx?$/,
           include: [appSrcPath],
@@ -27,6 +34,8 @@ module.exports.getCommonConfig = function () {
             context: appPath,
           },
         },
+
+        // Loader for injecting css styles on the page
         {
           test: /\.css$/i,
           use: [
@@ -61,6 +70,8 @@ module.exports.getCommonConfig = function () {
       },
     },
     plugins: [
+      // Copy all public dir to build every compilation
+      // Manifest.json is transformed
       new CopyPlugin({
         patterns: [
           {
@@ -68,14 +79,14 @@ module.exports.getCommonConfig = function () {
             to: ".",
             noErrorOnMissing: true,
             transform(content, absoluteFrom) {
-              if (absoluteFrom.endsWith('manifest.json')) return JSON.stringify(manifest, null, '\t');
+              if (absoluteFrom.endsWith('manifest.json')) return JSON.stringify(getManifestContent(), null, '\t');
               return content;
             },
           },
         ],
       }),
       new DefinePlugin({
-        URL_MATCHES: JSON.stringify(manifest?.content_scripts?.flatMap(x => x.matches) || []),
+        URL_MATCHES: JSON.stringify(initialManifest?.content_scripts?.flatMap(x => x.matches) || []),
       }),
     ]
   };
