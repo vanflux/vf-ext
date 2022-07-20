@@ -50,6 +50,18 @@ Execution order of content+page scripts:
 - Content script wait for document ready `complete` state and then calls `pageLoadedEntry` of content script.
 - Page script wait for document ready `complete` state and then calls `pageLoadedEntry` of page script.
 
+## Running
+
+Target is optional, by default is `chrome`, but it can be `firefox`.
+
+- `npm start <target>` (calls the `vfe start` command).
+
+## Build
+
+Target is optional, by default is `chrome`, but it can be `firefox`.
+
+- `npm run build <target>` (calls the `vfe build` command).
+
 # Current features
 
 - Cross-browser build (firefox & chrome)
