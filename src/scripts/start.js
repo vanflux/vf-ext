@@ -2,11 +2,13 @@ const webpack = require('webpack');
 const { default: merge } = require('webpack-merge');
 const { getCommonConfig } = require('./configs/common');
 const { getDevelopmentConfig } = require('./configs/development');
+const { getCustomWebpackConfig } = require('./utils/custom-webpack');
 
 module.exports = (target) => {
   const commonConfig = getCommonConfig(target);
   const developmentConfig = getDevelopmentConfig(target);
-  const config = merge(commonConfig, developmentConfig);
+  const customWebpackConfig = getCustomWebpackConfig();
+  const config = merge(commonConfig, developmentConfig, customWebpackConfig);
 
   webpack(config, (err, stats) => {
     if (err) {

@@ -18,6 +18,7 @@ const appPath = fs.realpathSync(process.cwd());
 const appSrcPath = path.resolve(appPath, 'src');
 const appPublicPath = path.resolve(appPath, 'public');
 const appPackagePath = path.resolve(appPath, 'package.json');
+const appWebpackPath = path.resolve(appPath, 'webpack.config.js');
 const appManifestPath = path.resolve(appPublicPath, 'manifest.json');
 const appBuildPath = path.resolve(appPath, 'build');
 const appBuildDevPath = path.resolve(appBuildPath, 'dev');
@@ -59,6 +60,7 @@ module.exports = {
   appSrcPath,
   appPublicPath,
   appPackagePath,
+  appWebpackPath,
   appManifestPath,
   appBuildPath,
   appBuildDevPath,

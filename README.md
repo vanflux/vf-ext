@@ -14,9 +14,9 @@ This is the continuation of [web-game-hacking-boilerplate](https://github.com/va
 - Page script (script executed directly on web page)
 - React support
 - Automatic extension reload
+- Custom webpack configuration
 
 # Goals
 
-- Create some 'vfe.js' configuration file (Ex: for configuring internal webpack)
 - API for request rewriting
 - API for content <-> page communication
