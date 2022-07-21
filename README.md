@@ -87,7 +87,7 @@ Firefox extension .zip can be used directly because firefox allows you to load c
 
 - Cross-browser build (firefox & chrome)
 - Page script (script executed directly on web page)
-- React 17 support
+- React 18 support
 - Automatic extension reload
 - Custom webpack configuration
 
